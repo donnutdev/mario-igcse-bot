@@ -28,6 +28,7 @@ import type { DiscordClient } from "../registry/DiscordClient";
 import BaseEvent from "../registry/Structure/BaseEvent";
 import { Logger } from "@discordforge/logger";
 import { logToChannel } from "@/utils/Logger";
+import { formatMessage } from "@/commands/study/Keyword";
 
 const stickyCounter: Record<string, number> = {};
 
@@ -40,28 +41,13 @@ export default class MessageCreateEvent extends BaseEvent {
 		if (message.author.bot) return;
 
 		if (message.inGuild()) {
-			KeywordCache.get(
-				message.guildId,
-				message.content.trim().toLowerCase(),
-			)
-				.then((keywordReponse) => {
-					if (
-						keywordReponse &&
-						!keywordReponse.startsWith("https://") &&
-						!keywordReponse.startsWith("http://")
-					) {
-						const embed = new EmbedBuilder()
-							.setDescription(keywordReponse)
-							.setFooter({
-								text: `Requested by ${message.author.tag}`,
-							})
-							.setColor(Colors.Blue);
-						message.channel.send({ embeds: [embed] });
-					} else if (keywordReponse) {
-						message.channel.send(keywordReponse);
-					}
-				})
-				.catch(Logger.error);
+			const keyword = message.content.trim().toLowerCase();
+			const entry = await KeywordCache.get(message.guildId, keyword);
+			if (entry.response) {
+				let messageOptions = await formatMessage(message, entry.response, false, keyword, entry.imageLink);
+				delete messageOptions.ephemeral;
+				await message.channel.send(messageOptions);
+			}
 
 			const guildPreferences = await GuildPreferencesCache.get(
 				message.guild.id,
@@ -92,7 +78,7 @@ export default class MessageCreateEvent extends BaseEvent {
 					((!lastMessage && message.content === "1") ||
 						(lastMessage &&
 							`${Number.parseInt(lastMessage.content) + 1}` ===
-							message.content)) &&
+								message.content)) &&
 					lastMessage.author.id !== message.author.id
 				)
 					message.react("✅");
@@ -217,7 +203,7 @@ export default class MessageCreateEvent extends BaseEvent {
 			if (
 				message.channel instanceof ThreadChannel &&
 				message.channel.parentId ===
-				guildPreferences.modmailThreadsChannelId
+					guildPreferences.modmailThreadsChannelId
 			) {
 				this.handleModMailReply(client, message as Message<true>);
 			}
@@ -496,7 +482,7 @@ To change the server you're contacting, use the \`/swap\` command`,
 				await message.reply(
 					botYwResponses[
 						Math.floor(Math.random() * botYwResponses.length)
-						],
+					],
 				);
 
 				continue;
