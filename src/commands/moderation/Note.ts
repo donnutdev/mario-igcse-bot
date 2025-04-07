@@ -21,7 +21,7 @@ export default class NoteCommand extends BaseCommand {
 	constructor() {
 		super(
 			new SlashCommandBuilder()
-				.setName("note")
+				.setName("notes")
 				.setDescription("Add a note to a user (for mods)")
 				.setDefaultMemberPermissions(PermissionFlagsBits.ModerateMembers)
 				.setDMPermission(false)
