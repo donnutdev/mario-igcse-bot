@@ -7,7 +7,9 @@ import BaseCommand, {
 } from "@/registry/Structure/BaseCommand";
 import {
 	ActionRowBuilder,
+	ApplicationIntegrationType,
 	type ButtonBuilder,
+	InteractionContextType,
 	MessageFlags,
 	PermissionFlagsBits,
 	SlashCommandBuilder,
@@ -44,8 +46,9 @@ export default class FeedbackChannelCommand extends BaseCommand {
 						.setName("remove")
 						.setDescription("Remove a feedback channel"),
 				)
-				.setDMPermission(false)
-				.setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
+				.setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

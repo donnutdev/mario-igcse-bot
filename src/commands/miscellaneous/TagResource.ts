@@ -8,8 +8,10 @@ import BaseCommand, {
 } from "@/registry/Structure/BaseCommand";
 import {
 	ActionRowBuilder,
+	ApplicationIntegrationType,
 	Colors,
 	EmbedBuilder,
+	InteractionContextType,
 	type InteractionReplyOptions,
 	type Message,
 	SlashCommandBuilder,
@@ -44,7 +46,8 @@ export default class ResourceTagCommand extends BaseCommand {
 								.setRequired(false),
 						),
 				)
-				.setDMPermission(false),
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

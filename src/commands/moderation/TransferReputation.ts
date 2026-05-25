@@ -7,8 +7,10 @@ import BaseCommand, {
 } from "@/registry/Structure/BaseCommand";
 import { logToChannel } from "@/utils/Logger";
 import {
+    ApplicationIntegrationType,
 	Colors,
 	EmbedBuilder,
+	InteractionContextType,
 	MessageFlags,
 	PermissionFlagsBits,
 	SlashCommandBuilder,
@@ -44,7 +46,9 @@ export default class extends BaseCommand {
 						)
 						.setRequired(false),
 				)
-				.setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
+				.setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

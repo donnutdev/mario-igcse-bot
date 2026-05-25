@@ -11,6 +11,8 @@ import {
 	PermissionFlagsBits,
 	MessageFlags,
 	SlashCommandBuilder,
+    ApplicationIntegrationType,
+    InteractionContextType,
 } from "discord.js";
 import parse from "parse-duration";
 
@@ -36,7 +38,8 @@ export default class GoStudyCommand extends BaseCommand {
 						)
 						.setRequired(false),
 				)
-				.setDMPermission(false),
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

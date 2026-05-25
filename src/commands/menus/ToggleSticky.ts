@@ -20,6 +20,8 @@ import {
 	TextInputBuilder,
 	MessageFlags,
 	TextInputStyle,
+    ApplicationIntegrationType,
+    InteractionContextType,
 } from "discord.js";
 import { EntityId } from "redis-om";
 
@@ -29,7 +31,8 @@ export default class StickMessageCommand extends BaseCommand {
 			new ContextMenuCommandBuilder()
 				.setName("Toggle Sticky Message")
 				.setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
-				.setDMPermission(false)
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall)
 				.setType(ApplicationCommandType.Message),
 		);
 	}

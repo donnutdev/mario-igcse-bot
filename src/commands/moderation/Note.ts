@@ -12,8 +12,10 @@ import {
 	ActionRowBuilder,
 	type ButtonBuilder,
 	EmbedBuilder,
+	ApplicationIntegrationType,
 	PermissionFlagsBits,
 	SlashCommandBuilder,
+	InteractionContextType,
 	MessageFlags,
 } from "discord.js";
 import { v4 as uuidv4 } from "uuid";
@@ -27,7 +29,8 @@ export default class NoteCommand extends BaseCommand {
 				.setDefaultMemberPermissions(
 					PermissionFlagsBits.ModerateMembers,
 				)
-				.setDMPermission(false)
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall)
 				.addSubcommand((subcommand) =>
 					subcommand
 						.setName("add")

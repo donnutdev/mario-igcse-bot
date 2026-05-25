@@ -20,6 +20,8 @@ import {
 	TextInputBuilder,
 	TextInputStyle,
 	MessageFlags,
+    InteractionContextType,
+    ApplicationIntegrationType,
 } from "discord.js";
 import { v4 as uuidv4 } from "uuid";
 import BaseCommand, {
@@ -56,7 +58,8 @@ export default class KeywordCommand extends BaseCommand {
 						.setName("request")
 						.setDescription("Request a keyword"),
 				)
-				.setDMPermission(false),
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

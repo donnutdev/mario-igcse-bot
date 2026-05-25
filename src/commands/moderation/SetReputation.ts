@@ -3,7 +3,7 @@ import type { DiscordClient } from "@/registry/DiscordClient";
 import BaseCommand, {
 	type DiscordChatInputCommandInteraction,
 } from "@/registry/Structure/BaseCommand";
-import { PermissionFlagsBits, SlashCommandBuilder } from "discord.js";
+import { ApplicationIntegrationType, InteractionContextType, PermissionFlagsBits, SlashCommandBuilder } from "discord.js";
 
 export default class extends BaseCommand {
 	constructor() {
@@ -11,7 +11,6 @@ export default class extends BaseCommand {
 			new SlashCommandBuilder()
 				.setName("set_rep")
 				.setDescription("Change a users reputation (for mods)")
-				.setDMPermission(false)
 				.addIntegerOption((option) =>
 					option
 						.setName("new_rep")
@@ -30,7 +29,9 @@ export default class extends BaseCommand {
 						.setDescription("The user who gave the rep")
 						.setRequired(false),
 				)
-				.setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
+				.setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

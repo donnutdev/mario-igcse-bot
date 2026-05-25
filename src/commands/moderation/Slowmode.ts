@@ -9,6 +9,8 @@ import {
 	PermissionFlagsBits,
 	SlashCommandBuilder,
 	MessageFlags,
+    InteractionContextType,
+    ApplicationIntegrationType,
 } from "discord.js";
 import humanizeDuration from "humanize-duration";
 import parse from "parse-duration";
@@ -36,7 +38,9 @@ export default class SlowmodeCommand extends BaseCommand {
 				)
 				.setDefaultMemberPermissions(
 					PermissionFlagsBits.ManageChannels,
-				),
+				)
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

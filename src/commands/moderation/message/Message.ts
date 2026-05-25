@@ -15,6 +15,8 @@ import {
 	TextInputBuilder,
 	TextInputStyle,
 	MessageFlags,
+    InteractionContextType,
+    ApplicationIntegrationType,
 } from "discord.js";
 
 export default class KickCommand extends BaseCommand {
@@ -53,7 +55,8 @@ export default class KickCommand extends BaseCommand {
 						),
 				)
 				.setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
-				.setDMPermission(false),
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

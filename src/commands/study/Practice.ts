@@ -24,9 +24,11 @@ import { Logger } from "@discordforge/logger";
 import {
 	ActionRowBuilder,
 	type AnyThreadChannel,
+	ApplicationIntegrationType,
 	type ButtonBuilder,
 	ChannelType,
 	EmbedBuilder,
+	InteractionContextType,
 	type Message,
 	MessageFlags,
 	SlashCommandBuilder,
@@ -80,7 +82,9 @@ export default class PracticeCommand extends BaseCommand {
 						)
 						.setDescription("Choose an action")
 						.setRequired(true),
-				),
+				)
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

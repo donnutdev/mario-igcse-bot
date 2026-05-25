@@ -8,7 +8,9 @@ import { logToChannel } from "@/utils/Logger";
 import {
 	Colors,
 	EmbedBuilder,
+	ApplicationIntegrationType,
 	PermissionFlagsBits,
+	InteractionContextType,
 	SlashCommandBuilder,
 	MessageFlags,
 } from "discord.js";
@@ -34,7 +36,8 @@ export default class EditCaseCommand extends BaseCommand {
 				.setDefaultMemberPermissions(
 					PermissionFlagsBits.ModerateMembers,
 				)
-				.setDMPermission(false),
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

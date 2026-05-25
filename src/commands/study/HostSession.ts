@@ -18,6 +18,8 @@ import {
 	TextInputStyle,
 	MessageFlags,
 	type Message,
+    InteractionContextType,
+    ApplicationIntegrationType,
 } from "discord.js";
 import humanizeDuration from "humanize-duration";
 import parse from "parse-duration";
@@ -34,7 +36,8 @@ export default class HostSessionCommand extends BaseCommand {
 			new SlashCommandBuilder()
 				.setName("host_session")
 				.setDescription("Schedule a study session you want to host")
-				.setDMPermission(false),
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

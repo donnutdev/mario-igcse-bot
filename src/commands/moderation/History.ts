@@ -7,7 +7,9 @@ import BaseCommand, {
 import {
 	Colors,
 	EmbedBuilder,
+	ApplicationIntegrationType,
 	PermissionFlagsBits,
+	InteractionContextType,
 	SlashCommandBuilder,
 } from "discord.js";
 
@@ -48,7 +50,8 @@ export default class HistoryCommand extends BaseCommand {
 				.setDefaultMemberPermissions(
 					PermissionFlagsBits.ModerateMembers,
 				)
-				.setDMPermission(false),
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

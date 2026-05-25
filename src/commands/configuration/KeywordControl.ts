@@ -6,10 +6,12 @@ import BaseCommand, {
 } from "@/registry/Structure/BaseCommand";
 import {
 	ActionRowBuilder,
+	ApplicationIntegrationType,
 	type AutocompleteInteraction,
 	ButtonBuilder,
 	type ButtonInteraction,
 	ButtonStyle,
+	InteractionContextType,
 	type MessageEditAttachmentData,
 	type MessageEditOptions,
 	MessageFlags,
@@ -44,7 +46,8 @@ export default class KeywordControlCommand extends BaseCommand {
 								.setAutocomplete(true),
 						),
 				)
-				.setDMPermission(false)
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall)
 				.setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
 		);
 	}

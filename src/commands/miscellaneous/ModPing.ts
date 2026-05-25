@@ -6,9 +6,11 @@ import BaseCommand, {
 import { logToChannel } from "@/utils/Logger";
 import {
 	ActionRowBuilder,
+	ApplicationIntegrationType,
 	ButtonBuilder,
 	ButtonStyle,
 	ComponentType,
+	InteractionContextType,
 	SlashCommandBuilder,
 	EmbedBuilder,
 	MessageFlags,
@@ -23,7 +25,8 @@ export default class ModPingCommand extends BaseCommand {
 				.setDescription(
 					"ping the moderators (use only for important cases)",
 				)
-				.setDMPermission(false),
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

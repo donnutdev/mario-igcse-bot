@@ -12,6 +12,8 @@ import {
 	PermissionFlagsBits,
 	SlashCommandBuilder,
 	MessageFlags,
+    InteractionContextType,
+    ApplicationIntegrationType,
 } from "discord.js";
 
 export default class WarnCommand extends BaseCommand {
@@ -35,7 +37,8 @@ export default class WarnCommand extends BaseCommand {
 				.setDefaultMemberPermissions(
 					PermissionFlagsBits.ModerateMembers,
 				)
-				.setDMPermission(false),
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

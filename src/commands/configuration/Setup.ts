@@ -11,7 +11,9 @@ import BaseCommand, {
 } from "@/registry/Structure/BaseCommand";
 import {
 	ActionRowBuilder,
+	ApplicationIntegrationType,
 	type ButtonBuilder,
+	InteractionContextType,
 	MessageFlags,
 	PermissionFlagsBits,
 	SlashCommandBuilder,
@@ -39,7 +41,8 @@ export default class SetupCommand extends BaseCommand {
 				.setName("setup")
 				.setDescription("Setup the bot for your server (for admins)")
 				.setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
-				.setDMPermission(false),
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

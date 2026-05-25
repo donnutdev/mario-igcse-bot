@@ -2,9 +2,11 @@ import { resourceRepositories } from "@/data";
 import type { DiscordClient } from "@/registry/DiscordClient";
 import {
 	ActionRowBuilder,
+	ApplicationIntegrationType,
 	ButtonBuilder,
 	ButtonStyle,
 	ComponentType,
+	InteractionContextType,
 	SlashCommandBuilder,
 	StringSelectMenuBuilder,
 	type StringSelectMenuInteraction,
@@ -19,7 +21,9 @@ export default class ResourcesCommand extends BaseCommand {
 		super(
 			new SlashCommandBuilder()
 				.setName("resources")
-				.setDescription("View the r/igcse resources repository"),
+				.setDescription("View the r/igcse resources repository")
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

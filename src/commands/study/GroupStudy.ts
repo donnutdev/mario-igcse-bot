@@ -1,7 +1,7 @@
 import { StudyChannel } from "@/mongo/schemas/StudyChannel";
 import { GuildPreferencesCache } from "@/redis";
 import type { DiscordClient } from "@/registry/DiscordClient";
-import { SlashCommandBuilder, VoiceChannel, MessageFlags } from "discord.js";
+import { SlashCommandBuilder, VoiceChannel, MessageFlags, InteractionContextType, ApplicationIntegrationType } from "discord.js";
 import BaseCommand, {
 	type DiscordChatInputCommandInteraction,
 } from "../../registry/Structure/BaseCommand";
@@ -12,7 +12,8 @@ export default class GroupStudyCommand extends BaseCommand {
 			new SlashCommandBuilder()
 				.setName("group_study")
 				.setDescription("Start a group study session")
-				.setDMPermission(false),
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

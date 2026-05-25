@@ -6,6 +6,8 @@ import {
 	EmbedBuilder,
 	SlashCommandBuilder,
 	MessageFlags,
+    InteractionContextType,
+    ApplicationIntegrationType,
 } from "discord.js";
 import BaseCommand, {
 	type DiscordChatInputCommandInteraction,
@@ -58,7 +60,9 @@ export default class RandomPypCommand extends BaseCommand {
 						.setName("paper_number")
 						.setDescription("The paper number")
 						.setRequired(true),
-				),
+				)
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

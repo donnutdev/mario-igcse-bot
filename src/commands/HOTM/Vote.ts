@@ -6,7 +6,7 @@ import BaseCommand, {
 	type DiscordChatInputCommandInteraction,
 } from "@/registry/Structure/BaseCommand";
 import { logToChannel } from "@/utils/Logger";
-import { SlashCommandBuilder, MessageFlags } from "discord.js";
+import { SlashCommandBuilder, MessageFlags, InteractionContextType, ApplicationIntegrationType } from "discord.js";
 import type hotmSessionCommand from "./VotingSession";
 
 export default class HOTMVotingCommand extends BaseCommand {
@@ -21,7 +21,8 @@ export default class HOTMVotingCommand extends BaseCommand {
 						.setDescription("Choose the helper to vote for")
 						.setRequired(true),
 				)
-				.setDMPermission(false),
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

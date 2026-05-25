@@ -9,7 +9,9 @@ import sendDm from "@/utils/sendDm";
 import {
 	Colors,
 	EmbedBuilder,
+	ApplicationIntegrationType,
 	PermissionFlagsBits,
+	InteractionContextType,
 	SlashCommandBuilder,
 	MessageFlags,
 } from "discord.js";
@@ -33,7 +35,8 @@ export default class KickCommand extends BaseCommand {
 						.setRequired(true),
 				)
 				.setDefaultMemberPermissions(PermissionFlagsBits.KickMembers)
-				.setDMPermission(false),
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

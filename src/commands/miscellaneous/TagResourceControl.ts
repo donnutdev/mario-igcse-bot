@@ -3,7 +3,9 @@ import { GuildPreferencesCache } from "@/redis";
 import type { DiscordClient } from "@/registry/DiscordClient";
 import {
 	ActionRowBuilder,
+	ApplicationIntegrationType,
 	MessageFlags,
+	InteractionContextType,
 	ModalBuilder,
 	PermissionFlagsBits,
 	SlashCommandBuilder,
@@ -58,7 +60,8 @@ export default class TagResourceControlsCommand extends BaseCommand {
 				.setDefaultMemberPermissions(
 					PermissionFlagsBits.ModerateMembers,
 				)
-				.setDMPermission(false),
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

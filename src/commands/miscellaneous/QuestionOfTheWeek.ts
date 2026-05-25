@@ -7,9 +7,11 @@ import {
 	ActionRowBuilder,
 	ButtonBuilder,
 	ButtonStyle,
+	ApplicationIntegrationType,
 	ChannelType,
 	ComponentType,
 	EmbedBuilder,
+	InteractionContextType,
 	PermissionFlagsBits,
 	SlashCommandBuilder,
 } from "discord.js";
@@ -21,7 +23,8 @@ export default class extends BaseCommand {
 			new SlashCommandBuilder()
 				.setName("qotw")
 				.setDescription("Send this week's question (for mods)")
-				.setDMPermission(false)
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall)
 				.addStringOption((option) =>
 					option
 						.setName("question")

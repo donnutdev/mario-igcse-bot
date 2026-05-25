@@ -1,5 +1,5 @@
 import type { DiscordClient } from "@/registry/DiscordClient";
-import { MessageFlags, SlashCommandBuilder } from "discord.js";
+import { ApplicationIntegrationType, InteractionContextType, MessageFlags, SlashCommandBuilder } from "discord.js";
 import BaseCommand, {
 	type DiscordChatInputCommandInteraction,
 } from "../../registry/Structure/BaseCommand";
@@ -23,7 +23,9 @@ export default class EpochCommand extends BaseCommand {
 						.setDescription(
 							"Exact time of the timestamp (UTC) (HH:MM:SS)",
 						),
-				),
+				)
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

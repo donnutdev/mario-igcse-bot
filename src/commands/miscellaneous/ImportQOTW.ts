@@ -6,10 +6,12 @@ import BaseCommand, {
 import { Logger } from "@discordforge/logger";
 import {
 	ActionRowBuilder,
+	ApplicationIntegrationType,
 	ButtonBuilder,
 	ButtonStyle,
 	ComponentType,
 	EmbedBuilder,
+	InteractionContextType,
 	PermissionFlagsBits,
 	SlashCommandBuilder,
 } from "discord.js";
@@ -30,7 +32,9 @@ export default class ImportQOTWCommand extends BaseCommand {
 						)
 						.setRequired(true),
 				)
-				.setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
+				.setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

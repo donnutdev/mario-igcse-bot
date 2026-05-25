@@ -6,11 +6,13 @@ import BaseCommand, {
 import {
 	ActionRowBuilder,
 	ApplicationCommandType,
+	ApplicationIntegrationType,
 	ButtonBuilder,
 	ButtonStyle,
 	ComponentType,
 	ContextMenuCommandBuilder,
 	EmbedBuilder,
+	InteractionContextType,
 	MessageFlags,
 	PermissionFlagsBits,
 } from "discord.js";
@@ -22,7 +24,8 @@ export default class HelperMenu extends BaseCommand {
 				.setName("Helper Ping")
 				.setType(ApplicationCommandType.Message)
 				.setDefaultMemberPermissions(PermissionFlagsBits.SendMessages)
-				.setDMPermission(false),
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

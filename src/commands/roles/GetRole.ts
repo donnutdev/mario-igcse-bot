@@ -6,7 +6,9 @@ import BaseCommand, {
 } from "@/registry/Structure/BaseCommand";
 import {
 	ActionRowBuilder,
+	ApplicationIntegrationType,
 	type GuildMemberRoleManager,
+	InteractionContextType,
 	MessageFlags,
 	ModalBuilder,
 	SlashCommandBuilder,
@@ -21,7 +23,8 @@ export default class PingCommand extends BaseCommand {
 			new SlashCommandBuilder()
 				.setName("getrole")
 				.setDescription("Get the 2025 role")
-				.setDMPermission(false),
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

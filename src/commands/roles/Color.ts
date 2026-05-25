@@ -10,6 +10,8 @@ import {
 	StringSelectMenuBuilder,
 	StringSelectMenuOptionBuilder,
 	MessageFlags,
+    ApplicationIntegrationType,
+    InteractionContextType,
 } from "discord.js";
 
 export default class ColorRolesCommand extends BaseCommand {
@@ -18,7 +20,8 @@ export default class ColorRolesCommand extends BaseCommand {
 			new SlashCommandBuilder()
 				.setName("color")
 				.setDescription("Choose a display colour for your name")
-				.setDMPermission(false),
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

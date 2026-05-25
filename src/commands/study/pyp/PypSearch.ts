@@ -4,6 +4,8 @@ import {
 	EmbedBuilder,
 	SlashCommandBuilder,
 	MessageFlags,
+    InteractionContextType,
+    ApplicationIntegrationType,
 } from "discord.js";
 import BaseCommand, {
 	type DiscordChatInputCommandInteraction,
@@ -53,7 +55,9 @@ export default class ResourcesCommand extends BaseCommand {
 						.setName("query")
 						.setDescription("Search Query")
 						.setRequired(true),
-				),
+				)
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

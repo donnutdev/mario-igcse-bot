@@ -12,6 +12,8 @@ import {
 	SlashCommandBuilder,
 	TextChannel,
 	MessageFlags,
+    InteractionContextType,
+    ApplicationIntegrationType,
 } from "discord.js";
 import type hotmSessionCommand from "./VotingSession";
 
@@ -61,7 +63,8 @@ export default class HOTMSessionCommand extends BaseCommand {
 						),
 				)
 				.setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
-				.setDMPermission(false),
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

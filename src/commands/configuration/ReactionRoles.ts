@@ -5,6 +5,8 @@ import BaseCommand, {
 	type DiscordChatInputCommandInteraction,
 } from "@/registry/Structure/BaseCommand";
 import {
+    ApplicationIntegrationType,
+    InteractionContextType,
 	MessageFlags,
 	PermissionFlagsBits,
 	SlashCommandBuilder,
@@ -41,6 +43,8 @@ export default class ReactionRolesCommand extends BaseCommand {
 								.setRequired(true),
 						),
 				)
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall)
 				.setDefaultMemberPermissions(PermissionFlagsBits.ManageRoles),
 		);
 	}

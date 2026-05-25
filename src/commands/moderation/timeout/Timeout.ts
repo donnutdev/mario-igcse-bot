@@ -12,6 +12,8 @@ import {
 	PermissionFlagsBits,
 	MessageFlags,
 	SlashCommandBuilder,
+    ApplicationIntegrationType,
+    InteractionContextType,
 } from "discord.js";
 import humanizeDuration from "humanize-duration";
 import parse from "parse-duration";
@@ -43,7 +45,8 @@ export default class TimeoutCommand extends BaseCommand {
 				.setDefaultMemberPermissions(
 					PermissionFlagsBits.ModerateMembers,
 				)
-				.setDMPermission(false),
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

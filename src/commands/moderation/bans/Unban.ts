@@ -11,6 +11,8 @@ import {
 	PermissionFlagsBits,
 	SlashCommandBuilder,
 	MessageFlags,
+    InteractionContextType,
+    ApplicationIntegrationType,
 } from "discord.js";
 
 export default class UnbanCommand extends BaseCommand {
@@ -26,7 +28,8 @@ export default class UnbanCommand extends BaseCommand {
 						.setRequired(true),
 				)
 				.setDefaultMemberPermissions(PermissionFlagsBits.BanMembers)
-				.setDMPermission(false),
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

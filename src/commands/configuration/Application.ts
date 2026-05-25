@@ -7,7 +7,9 @@ import BaseCommand, {
 } from "@/registry/Structure/BaseCommand";
 import {
 	ActionRowBuilder,
+	ApplicationIntegrationType,
 	type ButtonBuilder,
+	InteractionContextType,
 	MessageFlags,
 	ModalBuilder,
 	PermissionFlagsBits,
@@ -113,7 +115,9 @@ export default class ApplicationCommand extends BaseCommand {
 								)
 								.setRequired(true),
 						),
-				),
+				)
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

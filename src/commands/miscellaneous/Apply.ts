@@ -13,6 +13,8 @@ import {
 	TextChannel,
 	TextInputBuilder,
 	TextInputStyle,
+    InteractionContextType,
+    ApplicationIntegrationType,
 } from "discord.js";
 import { v4 as uuidv4 } from "uuid";
 import BaseCommand, {
@@ -24,7 +26,9 @@ export default class ApplyCommand extends BaseCommand {
 		super(
 			new SlashCommandBuilder()
 				.setName("apply")
-				.setDescription("Apply for positions in the server"),
+				.setDescription("Apply for positions in the server")
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

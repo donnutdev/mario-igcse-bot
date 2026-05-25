@@ -3,7 +3,7 @@ import BaseCommand, {
 	type DiscordChatInputCommandInteraction,
 } from "@/registry/Structure/BaseCommand";
 import { PaginationBuilder } from "@discordforge/pagination";
-import { Colors, PermissionsBitField, SlashCommandBuilder } from "discord.js";
+import { ApplicationIntegrationType, Colors, InteractionContextType, PermissionsBitField, SlashCommandBuilder } from "discord.js";
 
 export default class HelpCommand extends BaseCommand {
 	constructor() {
@@ -11,7 +11,8 @@ export default class HelpCommand extends BaseCommand {
 			new SlashCommandBuilder()
 				.setName("help")
 				.setDescription("A list of all the commands available to you.")
-				.setDMPermission(false),
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

@@ -1,6 +1,8 @@
 import type { DiscordClient } from "@/registry/DiscordClient";
 import {
+    ApplicationIntegrationType,
 	ChannelType,
+	InteractionContextType,
 	PermissionFlagsBits,
 	SlashCommandBuilder,
 } from "discord.js";
@@ -31,7 +33,9 @@ export default class RecordSessionCommand extends BaseCommand {
 						.setDescription("The maximum duration of the recording")
 						.setRequired(true),
 				)
-				.setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
+				.setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

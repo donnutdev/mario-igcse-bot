@@ -9,7 +9,9 @@ import sendDm from "@/utils/sendDm";
 import {
 	Colors,
 	EmbedBuilder,
+	ApplicationIntegrationType,
 	PermissionFlagsBits,
+	InteractionContextType,
 	SlashCommandBuilder,
 	MessageFlags,
 } from "discord.js";
@@ -35,7 +37,8 @@ export default class ResetNicknameCommand extends BaseCommand {
 						.setRequired(false),
 				)
 				.setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
-				.setDMPermission(false),
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

@@ -1,6 +1,10 @@
 import { Reputation } from "@/mongo";
 import type { DiscordClient } from "@/registry/DiscordClient";
-import { SlashCommandBuilder } from "discord.js";
+import {
+	ApplicationIntegrationType,
+	InteractionContextType,
+	SlashCommandBuilder,
+} from "discord.js";
 import BaseCommand, {
 	type DiscordChatInputCommandInteraction,
 } from "../../registry/Structure/BaseCommand";
@@ -23,7 +27,8 @@ export default class ReputationCommand extends BaseCommand {
 						),
 				)
 
-				.setDMPermission(false),
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

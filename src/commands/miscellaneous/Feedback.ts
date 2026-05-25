@@ -14,6 +14,8 @@ import {
 	TextInputBuilder,
 	TextInputStyle,
 	MessageFlags,
+    ApplicationIntegrationType,
+    InteractionContextType,
 } from "discord.js";
 import { v4 as uuidv4 } from "uuid";
 import BaseCommand, {
@@ -28,7 +30,8 @@ export default class FeedbackCommand extends BaseCommand {
 				.setDescription(
 					"Submit feedback to the teams behind the server",
 				)
-				.setDMPermission(false),
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

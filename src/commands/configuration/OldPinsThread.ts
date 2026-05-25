@@ -4,6 +4,8 @@ import BaseCommand, {
 	type DiscordChatInputCommandInteraction,
 } from "@/registry/Structure/BaseCommand";
 import {
+    ApplicationIntegrationType,
+    InteractionContextType,
 	MessageFlags,
 	PermissionFlagsBits,
 	SlashCommandBuilder,
@@ -43,7 +45,8 @@ export default class OldPinsThreadCommand extends BaseCommand {
 								.setRequired(true),
 						),
 				)
-				.setDMPermission(false)
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall)
 				.setDefaultMemberPermissions(
 					PermissionFlagsBits.ManageChannels,
 				),

@@ -8,7 +8,9 @@ import { logToChannel } from "@/utils/Logger";
 import {
 	Colors,
 	EmbedBuilder,
+	ApplicationIntegrationType,
 	PermissionFlagsBits,
+	InteractionContextType,
 	SlashCommandBuilder,
 	MessageFlags,
 	ChannelType,
@@ -31,7 +33,8 @@ export default class MassRemoveStickyCommand extends BaseCommand {
 						.setRequired(true),
 				)
 				.setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
-				.setDMPermission(false),
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

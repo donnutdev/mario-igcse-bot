@@ -2,12 +2,16 @@ import type { DiscordClient } from "@/registry/DiscordClient";
 import BaseCommand, {
 	type DiscordChatInputCommandInteraction,
 } from "@/registry/Structure/BaseCommand";
-import { EmbedBuilder, SlashCommandBuilder } from "discord.js";
+import { ApplicationIntegrationType, EmbedBuilder, InteractionContextType, SlashCommandBuilder } from "discord.js";
 
 export default class PingCommand extends BaseCommand {
 	constructor() {
 		super(
-			new SlashCommandBuilder().setName("ping").setDescription("Pong!"),
+			new SlashCommandBuilder()
+				.setName("ping")
+				.setDescription("Pong!")
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

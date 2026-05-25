@@ -13,6 +13,8 @@ import {
 	EmbedBuilder,
 	PermissionFlagsBits,
 	MessageFlags,
+    ApplicationIntegrationType,
+    InteractionContextType,
 } from "discord.js";
 
 export default class StickMessageCommand extends BaseCommand {
@@ -21,7 +23,8 @@ export default class StickMessageCommand extends BaseCommand {
 			new ContextMenuCommandBuilder()
 				.setName("Stick Message to Pins")
 				.setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
-				.setDMPermission(false)
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall)
 				.setType(ApplicationCommandType.Message),
 		);
 	}

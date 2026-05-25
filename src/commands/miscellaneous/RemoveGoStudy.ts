@@ -5,7 +5,9 @@ import BaseCommand, {
 } from "@/registry/Structure/BaseCommand";
 import { Logger } from "@discordforge/logger";
 import {
+	ApplicationIntegrationType,
 	PermissionFlagsBits,
+	InteractionContextType,
 	SlashCommandBuilder,
 	MessageFlags,
 } from "discord.js";
@@ -25,7 +27,8 @@ export default class RemoveGoStudyCommand extends BaseCommand {
 				.setDefaultMemberPermissions(
 					PermissionFlagsBits.ModerateMembers,
 				)
-				.setDMPermission(false),
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

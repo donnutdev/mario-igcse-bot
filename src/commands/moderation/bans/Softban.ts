@@ -7,8 +7,10 @@ import BaseCommand, {
 import { logToChannel } from "@/utils/Logger";
 import sendDm from "@/utils/sendDm";
 import {
+    ApplicationIntegrationType,
 	Colors,
 	EmbedBuilder,
+	InteractionContextType,
 	MessageFlags,
 	PermissionFlagsBits,
 	SlashCommandBuilder,
@@ -45,7 +47,8 @@ export default class SoftbanCommand extends BaseCommand {
 						.setRequired(false),
 				)
 				.setDefaultMemberPermissions(PermissionFlagsBits.BanMembers)
-				.setDMPermission(false),
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

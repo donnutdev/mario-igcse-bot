@@ -8,6 +8,8 @@ import {
 	TextInputBuilder,
 	TextInputStyle,
 	MessageFlags,
+    InteractionContextType,
+    ApplicationIntegrationType,
 } from "discord.js";
 import BaseCommand, {
 	type DiscordChatInputCommandInteraction,
@@ -27,7 +29,9 @@ export default class ConfessionCommand extends BaseCommand {
 		super(
 			new SlashCommandBuilder()
 				.setName("confess")
-				.setDescription("Make an anonymous confession"),
+				.setDescription("Make an anonymous confession")
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

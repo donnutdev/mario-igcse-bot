@@ -5,10 +5,12 @@ import BaseCommand, {
 } from "@/registry/Structure/BaseCommand";
 import {
 	ChannelType,
+	ApplicationIntegrationType,
 	PermissionFlagsBits,
 	SlashCommandBuilder,
 	ButtonBuilder,
 	MessageFlags,
+	InteractionContextType,
 } from "discord.js";
 import { GuildPreferencesCache } from "@/redis";
 
@@ -93,7 +95,8 @@ export default class LockdownCommand extends BaseCommand {
 						),
 				)
 				.setDefaultMemberPermissions(PermissionFlagsBits.ManageChannels)
-				.setDMPermission(false),
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

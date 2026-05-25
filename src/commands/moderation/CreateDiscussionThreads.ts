@@ -11,11 +11,13 @@ import {
 	ChannelType,
 	Colors,
 	ComponentType,
+	ApplicationIntegrationType,
 	EmbedBuilder,
 	Message,
 	MessageFlags,
 	PermissionFlagsBits,
 	SlashCommandBuilder,
+	InteractionContextType,
 	SnowflakeUtil,
 } from "discord.js";
 import { caieDiscussionForums, edexcelDiscussionForums } from "@/data";
@@ -31,7 +33,8 @@ export default class CreateDiscussionForumCommand extends BaseCommand {
 				.setDescription(
 					"Create a forum with all discussion threads for the current exam session (for mods)",
 				)
-				.setDMPermission(false)
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall)
 				.addStringOption((option) =>
 					option
 						.setName("exam_session")

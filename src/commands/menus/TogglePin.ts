@@ -17,6 +17,8 @@ import {
 	TextChannel,
 	MessageFlags,
 	ThreadChannel,
+    ApplicationIntegrationType,
+    InteractionContextType,
 } from "discord.js";
 
 export default class PinMenu extends BaseCommand {
@@ -25,7 +27,8 @@ export default class PinMenu extends BaseCommand {
 			new ContextMenuCommandBuilder()
 				.setName("Toggle Pinned")
 				.setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
-				.setDMPermission(false)
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall)
 				.setType(ApplicationCommandType.Message),
 		);
 	}

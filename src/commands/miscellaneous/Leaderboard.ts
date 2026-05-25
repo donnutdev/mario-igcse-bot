@@ -4,7 +4,14 @@ import BaseCommand, {
 	type DiscordChatInputCommandInteraction,
 } from "@/registry/Structure/BaseCommand";
 import { PaginationBuilder } from "@discordforge/pagination";
-import { Colors, SlashCommandBuilder, MessageFlags, Message } from "discord.js";
+import {
+	ApplicationIntegrationType,
+	Colors,
+	InteractionContextType,
+	MessageFlags,
+	Message,
+	SlashCommandBuilder,
+} from "discord.js";
 
 export default class LeaderboardCommand extends BaseCommand {
 	constructor() {
@@ -12,7 +19,8 @@ export default class LeaderboardCommand extends BaseCommand {
 			new SlashCommandBuilder()
 				.setName("leaderboard")
 				.setDescription("View the current rep leaderboard")
-				.setDMPermission(false)
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall)
 				.addIntegerOption((option) =>
 					option
 						.setName("page")

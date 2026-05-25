@@ -18,6 +18,8 @@ import {
 	TextInputBuilder,
 	TextInputStyle,
 	MessageFlags,
+    ApplicationIntegrationType,
+    InteractionContextType,
 } from "discord.js";
 import { v4 as uuidv4 } from "uuid";
 
@@ -26,7 +28,8 @@ export default class StickMessageCommand extends BaseCommand {
 		super(
 			new ContextMenuCommandBuilder()
 				.setName("Create Resource Tag")
-				.setDMPermission(false)
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall)
 				.setType(ApplicationCommandType.Message),
 		);
 	}

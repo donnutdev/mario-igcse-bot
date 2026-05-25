@@ -4,7 +4,9 @@ import BaseCommand, {
 	type DiscordChatInputCommandInteraction,
 } from "@/registry/Structure/BaseCommand";
 import {
+    ApplicationIntegrationType,
 	EmbedBuilder,
+	InteractionContextType,
 	MessageFlags,
 	PermissionFlagsBits,
 	SlashCommandBuilder,
@@ -19,7 +21,6 @@ export default class StudyChannelCommand extends BaseCommand {
 					"Create and edit study channels for your server (for admins)",
 				)
 				.setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
-				.setDMPermission(false)
 				.addSubcommand((subcommand) =>
 					subcommand
 						.setName("create")
@@ -91,7 +92,9 @@ export default class StudyChannelCommand extends BaseCommand {
 					subcommand
 						.setName("list")
 						.setDescription("Lists all study channels"),
-				),
+				)
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

@@ -11,6 +11,8 @@ import {
 	SlashCommandBuilder,
 	StringSelectMenuOptionBuilder,
 	MessageFlags,
+    InteractionContextType,
+    ApplicationIntegrationType,
 } from "discord.js";
 import { v4 } from "uuid";
 
@@ -19,7 +21,8 @@ export default class PingCommand extends BaseCommand {
 		super(
 			new SlashCommandBuilder()
 				.setName("swap")
-				.setDescription("Switch Modmail DM Server (dms only)"),
+				.setDescription("Switch Modmail DM Server (dms only)")
+				.setContexts(InteractionContextType.BotDM),
 		);
 	}
 

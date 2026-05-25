@@ -1,6 +1,6 @@
 import type { DiscordClient } from "@/registry/DiscordClient";
 import type { Category as JokeCategory } from "chucklejs";
-import { SlashCommandBuilder } from "discord.js";
+import { ApplicationIntegrationType, InteractionContextType, SlashCommandBuilder } from "discord.js";
 import BaseCommand, {
 	type DiscordChatInputCommandInteraction,
 } from "../../registry/Structure/BaseCommand";
@@ -38,7 +38,9 @@ export default class JokeCommand extends BaseCommand {
 								value: "Christmas",
 							},
 						),
-				),
+				)
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 
@@ -55,6 +57,6 @@ export default class JokeCommand extends BaseCommand {
 
 		const joke = (await getJoke(categories))[0];
 
-		interaction.followUp(joke);
+		await interaction.followUp(joke);
 	}
 }

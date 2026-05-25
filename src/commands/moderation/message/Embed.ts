@@ -16,6 +16,8 @@ import {
 	TextInputBuilder,
 	TextInputStyle,
 	MessageFlags,
+    InteractionContextType,
+    ApplicationIntegrationType,
 } from "discord.js";
 import { v4 as uuidv4 } from "uuid";
 
@@ -55,7 +57,8 @@ export default class EmbedCommand extends BaseCommand {
 						),
 				)
 				.setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
-				.setDMPermission(false),
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

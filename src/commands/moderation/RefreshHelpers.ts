@@ -7,8 +7,10 @@ import BaseCommand, {
 import { logToChannel } from "@/utils/Logger";
 import {
 	EmbedBuilder,
+	ApplicationIntegrationType,
 	PermissionFlagsBits,
 	SlashCommandBuilder,
+	InteractionContextType,
 	TextChannel,
 	MessageFlags,
 } from "discord.js";
@@ -20,7 +22,8 @@ export default class RefreshHelpersCommand extends BaseCommand {
 				.setName("refresh_helpers")
 				.setDescription("Update helper channel descriptions (for mods)")
 				.setDefaultMemberPermissions(PermissionFlagsBits.ManageChannels)
-				.setDMPermission(false),
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

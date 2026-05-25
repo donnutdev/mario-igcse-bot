@@ -3,9 +3,11 @@ import BaseCommand, {
 	type DiscordChatInputCommandInteraction,
 } from "@/registry/Structure/BaseCommand";
 import {
+    ApplicationIntegrationType,
 	CategoryChannel,
 	EmbedBuilder,
 	ForumChannel,
+	InteractionContextType,
 	PermissionFlagsBits,
 	SlashCommandBuilder,
 	TextChannel,
@@ -19,7 +21,8 @@ export default class InfoCommand extends BaseCommand {
 				.setName("info")
 				.setDescription("Bot information and statistics")
 				.setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
-				.setDMPermission(true),
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

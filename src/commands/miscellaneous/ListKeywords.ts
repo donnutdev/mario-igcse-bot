@@ -4,7 +4,13 @@ import BaseCommand, {
 	type DiscordChatInputCommandInteraction,
 } from "@/registry/Structure/BaseCommand";
 import { PaginationBuilder } from "@discordforge/pagination";
-import { Colors, SlashCommandBuilder, MessageFlags } from "discord.js";
+import {
+	ApplicationIntegrationType,
+	Colors,
+	InteractionContextType,
+	MessageFlags,
+	SlashCommandBuilder,
+} from "discord.js";
 
 export default class ListKeywordsCommand extends BaseCommand {
 	constructor() {
@@ -14,7 +20,8 @@ export default class ListKeywordsCommand extends BaseCommand {
 				.setDescription(
 					"Display all the keywords in the current server",
 				)
-				.setDMPermission(false),
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

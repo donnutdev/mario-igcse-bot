@@ -6,6 +6,8 @@ import {
 	PermissionFlagsBits,
 	SlashCommandBuilder,
 	MessageFlags,
+    ApplicationIntegrationType,
+    InteractionContextType,
 } from "discord.js";
 import BaseCommand, {
 	type DiscordChatInputCommandInteraction,
@@ -25,7 +27,9 @@ export default class DMUserCommand extends BaseCommand {
 				)
 				.setDefaultMemberPermissions(
 					PermissionFlagsBits.ModerateMembers,
-				),
+				)
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

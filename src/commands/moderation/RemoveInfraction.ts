@@ -11,8 +11,10 @@ import {
 	ActionRowBuilder,
 	type ButtonBuilder,
 	EmbedBuilder,
+	ApplicationIntegrationType,
 	PermissionFlagsBits,
 	SlashCommandBuilder,
+	InteractionContextType,
 	MessageFlags,
 } from "discord.js";
 import { v4 as uuidv4 } from "uuid";
@@ -23,7 +25,8 @@ export default class extends BaseCommand {
 			new SlashCommandBuilder()
 				.setName("remove_infraction")
 				.setDescription("Remove infraction (for mods)")
-				.setDMPermission(false)
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall)
 				.addUserOption((option) =>
 					option
 						.setName("user")

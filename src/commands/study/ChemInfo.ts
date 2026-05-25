@@ -8,7 +8,7 @@ import {
 	getExperimentalProperties,
 } from "@/utils/apis/cheminfo";
 import { Logger } from "@discordforge/logger";
-import { EmbedBuilder, SlashCommandBuilder, MessageFlags } from "discord.js";
+import { EmbedBuilder, SlashCommandBuilder, MessageFlags, InteractionContextType, ApplicationIntegrationType } from "discord.js";
 import BaseCommand, {
 	type DiscordChatInputCommandInteraction,
 } from "../../registry/Structure/BaseCommand";
@@ -34,7 +34,8 @@ export default class ChemInfoCommand extends BaseCommand {
 						.setDescription("Formula of chemical compound")
 						.setRequired(false),
 				)
-				.setDMPermission(true),
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 

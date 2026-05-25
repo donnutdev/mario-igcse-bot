@@ -12,10 +12,12 @@ import { PaginationBuilder } from "@discordforge/pagination";
 import {
 	ActionRowBuilder,
 	type ButtonBuilder,
+	ApplicationIntegrationType,
 	Colors,
 	EmbedBuilder,
 	Message,
 	MessageFlags,
+	InteractionContextType,
 	PermissionFlagsBits,
 	SlashCommandBuilder,
 	StringSelectMenuOptionBuilder,
@@ -59,7 +61,8 @@ export default class ScheduledCommand extends BaseCommand {
 								),
 						),
 				)
-				.setDMPermission(false)
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall)
 				.setDefaultMemberPermissions(
 					PermissionFlagsBits.ManageChannels,
 				),

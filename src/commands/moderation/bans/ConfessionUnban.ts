@@ -11,6 +11,8 @@ import {
 	PermissionFlagsBits,
 	SlashCommandBuilder,
 	MessageFlags,
+    InteractionContextType,
+    ApplicationIntegrationType,
 } from "discord.js";
 
 interface IBannedData {
@@ -31,7 +33,8 @@ export default class ConfessionUnban extends BaseCommand {
 						.setRequired(true),
 				)
 				.setDefaultMemberPermissions(PermissionFlagsBits.BanMembers)
-				.setDMPermission(false),
+				.setContexts(InteractionContextType.Guild)
+				.setIntegrationTypes(ApplicationIntegrationType.GuildInstall),
 		);
 	}
 
