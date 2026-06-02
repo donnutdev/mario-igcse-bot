@@ -69,7 +69,7 @@ export default class ModPingCommand extends BaseCommand {
 			})
 			.setTitle("Ping Moderators")
 			.setDescription(
-				"This command allows you to ping **all** moderators. Please only use this command if there's an emergency, including but not limited to:\n- raids\n- user leaks paper/ask for leaks\n- user violating ToS\n- etc.\nMisusing or abusing this command can result to an infraction (rule 6). Are you sure you want to perform this action?",
+				"This command allows you to ping **all** moderators. Please only use this command if there's an emergency, including:\n- raids\n- user engaging in malpractice\n- user violating ToS\n- etc.\nMisusing or abusing this command can result in a rule 6 infraction. Please first try pinging an individual active moderator or DMing <@861445044790886467> before using this command. Are you sure you want to perform this action?",
 			);
 
 		const buttonCustomId = uuidv4();
