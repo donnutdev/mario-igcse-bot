@@ -22,6 +22,7 @@ import {
 	Events,
 	ForumChannel,
 	type GuildMember,
+	type GuildTextBasedChannel,
 	type Message,
 	type MessageCreateOptions,
 	StringSelectMenuOptionBuilder,
@@ -361,11 +362,17 @@ To change the server you're contacting, use the \`/swap\` command`,
 
 		let thread: ThreadChannel;
 
-		if (res)
+		if (res) {
+			if (res.oneWay) {
+				await message.author.send(
+					`The moderators of **${guild.name}** have set your modmail thread to one-way. This means you can only receive messages, but not send messages.`,
+				);
+				return;
+			}
 			thread = (await channel.threads.fetch(
 				res.threadId,
 			)) as ThreadChannel;
-		else {
+		} else {
 			thread = await channel.threads.create({
 				name: `${message.author.username} (${message.author.id})`,
 				message: {
@@ -421,6 +428,44 @@ To change the server you're contacting, use the \`/swap\` command`,
 		await message.react("✅");
 	}
 
+	private async handleSetOneWay(
+		client: DiscordClient<true>,
+		user: User,
+		thread: GuildTextBasedChannel,
+	) {
+		await PrivateDmThread.findOneAndUpdate(
+			{
+				userId: user.id,
+			},
+			{
+				oneWay: true,
+			},
+		);
+
+		await thread.edit({
+			name: `${user.tag} (${user.id}) (One-Way)`,
+		});
+	}
+
+	private async handleUnsetOneWay(
+		client: DiscordClient<true>,
+		user: User,
+		thread: GuildTextBasedChannel,
+	) {
+		await PrivateDmThread.findOneAndUpdate(
+			{
+				userId: user.id,
+			},
+			{
+				oneWay: false,
+			},
+		);
+
+		await thread.edit({
+			name: `${user.tag} (${user.id})`,
+		});
+	}
+
 	private async handleModMailDelete(
 		client: DiscordClient<true>,
 		user: GuildMember | User,
@@ -463,7 +508,7 @@ To change the server you're contacting, use the \`/swap\` command`,
 			.fetch(dmThread.userId)
 			.catch(() => null);
 		const user =
-			member ??
+			member?.user ??
 			(await client.users.fetch(dmThread.userId).catch(() => null));
 		if (!user) {
 			await message.reply("Unable to find the user.");
@@ -475,15 +520,56 @@ To change the server you're contacting, use the \`/swap\` command`,
 			const command = fullCommand[1];
 			const args = fullCommand.slice(2);
 
-			if (command === "delete") {
-				let numDelete: number;
-				if (args && args.length > 0) {
-					numDelete = Number(args[0]);
-				} else {
-					numDelete = 1;
+			switch (command) {
+				case "delete": {
+					let numDelete: number;
+					if (args && args.length > 0) {
+						numDelete = Number(args[0]);
+					} else {
+						numDelete = 1;
+					}
+					this.handleModMailDelete(client, user, numDelete);
+					await message.react("☑");
+					break;
 				}
-				this.handleModMailDelete(client, user, numDelete);
-				await message.react("☑");
+				case "set_oneway": {
+					try {
+						this.handleSetOneWay(client, user, message.channel);
+					} catch (error) {
+						await message.reply(
+							"An error occurred while setting one-way status.",
+						);
+						client.log(
+							error,
+							"Set One-Way ModMail",
+							`**Channel:** <#${message.channel?.id}>
+              **User:** <@${message.author.id}>
+              **Guild:** ${message.guild.name} (${message.guildId})\n`,
+						);
+						return;
+					}
+					await message.react("☑");
+					break;
+				}
+				case "unset_oneway": {
+					try {
+						this.handleUnsetOneWay(client, user, message.channel);
+					} catch (error) {
+						await message.reply(
+							"An error occurred while unsetting one-way status.",
+						);
+						client.log(
+							error,
+							"Unset One-Way ModMail",
+							`**Channel:** <#${message.channel?.id}>
+              **User:** <@${message.author.id}>
+              **Guild:** ${message.guild.name} (${message.guildId})\n`,
+						);
+						return;
+					}
+					await message.react("☑");
+					break;
+				}
 			}
 		} else {
 			const embed = new EmbedBuilder()
@@ -633,13 +719,9 @@ To change the server you're contacting, use the \`/swap\` command`,
 				const isPingingOther = msg.mentions.users.has(otherUserId);
 
 				if (isReplyingToOther || isPingingOther) {
-					if (
-						isReplyingToOther &&
-						i > 0 &&
-						message.reference
-					) {
-						startIndex = recentMessages.findIndex((m) =>
-							m.id === msg.reference?.messageId,
+					if (isReplyingToOther && i > 0 && message.reference) {
+						startIndex = recentMessages.findIndex(
+							(m) => m.id === msg.reference?.messageId,
 						);
 						if (startIndex === -1) startIndex = i;
 					} else {
