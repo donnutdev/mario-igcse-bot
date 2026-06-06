@@ -435,7 +435,7 @@ To change the server you're contacting, use the \`/swap\` command`,
 	) {
 		await PrivateDmThread.findOneAndUpdate(
 			{
-				userId: user.id,
+				threadId: thread.id,
 			},
 			{
 				oneWay: true,
