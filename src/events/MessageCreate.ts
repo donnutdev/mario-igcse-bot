@@ -435,7 +435,8 @@ To change the server you're contacting, use the \`/swap\` command`,
 	) {
 		await PrivateDmThread.findOneAndUpdate(
 			{
-				threadId: thread.id,
+				threadId: thread.id,
+
 			},
 			{
 				oneWay: true,
@@ -454,7 +455,7 @@ To change the server you're contacting, use the \`/swap\` command`,
 	) {
 		await PrivateDmThread.findOneAndUpdate(
 			{
-				userId: user.id,
+				threadId: thread.id,
 			},
 			{
 				oneWay: false,
@@ -534,7 +535,7 @@ To change the server you're contacting, use the \`/swap\` command`,
 				}
 				case "set_oneway": {
 					try {
-						this.handleSetOneWay(client, user, message.channel);
+						await this.handleSetOneWay(client, user, message.channel);
 					} catch (error) {
 						await message.reply(
 							"An error occurred while setting one-way status.",
@@ -553,7 +554,7 @@ To change the server you're contacting, use the \`/swap\` command`,
 				}
 				case "unset_oneway": {
 					try {
-						this.handleUnsetOneWay(client, user, message.channel);
+						await this.handleUnsetOneWay(client, user, message.channel);
 					} catch (error) {
 						await message.reply(
 							"An error occurred while unsetting one-way status.",
