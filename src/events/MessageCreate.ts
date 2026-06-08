@@ -470,6 +470,45 @@ To change the server you're contacting, use the \`/swap\` command`,
 		});
 	}
 
+	private async handleSetOneWay(
+		client: DiscordClient<true>,
+		user: User,
+		thread: GuildTextBasedChannel,
+	) {
+		await PrivateDmThread.findOneAndUpdate(
+			{
+				threadId: thread.id,
+
+			},
+			{
+				oneWay: true,
+			},
+		);
+
+		await thread.edit({
+			name: `${user.tag} (${user.id}) (One-Way)`,
+		});
+	}
+
+	private async handleUnsetOneWay(
+		client: DiscordClient<true>,
+		user: User,
+		thread: GuildTextBasedChannel,
+	) {
+		await PrivateDmThread.findOneAndUpdate(
+			{
+				threadId: thread.id,
+			},
+			{
+				oneWay: false,
+			},
+		);
+
+		await thread.edit({
+			name: `${user.tag} (${user.id})`,
+		});
+	}
+
 	private async handleModMailDelete(
 		client: DiscordClient<true>,
 		user: GuildMember | User,
@@ -538,7 +577,7 @@ To change the server you're contacting, use the \`/swap\` command`,
 				}
 				case "set_oneway": {
 					try {
-						this.handleSetOneWay(client, user, message.channel);
+						await this.handleSetOneWay(client, user, message.channel);
 					} catch (error) {
 						await message.reply(
 							"An error occurred while setting one-way status.",
@@ -557,7 +596,7 @@ To change the server you're contacting, use the \`/swap\` command`,
 				}
 				case "unset_oneway": {
 					try {
-						this.handleUnsetOneWay(client, user, message.channel);
+						await this.handleUnsetOneWay(client, user, message.channel);
 					} catch (error) {
 						await message.reply(
 							"An error occurred while unsetting one-way status.",
